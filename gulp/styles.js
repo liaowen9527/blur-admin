@@ -3,6 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+const sass_nb = require('gulp-sass')(require('sass'));
 
 var browserSync = require('browser-sync');
 
@@ -55,7 +56,7 @@ var buildStyles = function () {
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sourcemaps.init())
-    .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
+    .pipe(sass_nb(sassOptions)).on('error', conf.errorHandler('Sass'))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')));
@@ -67,7 +68,7 @@ var buildSingleScss = function (paths) {
   };
 
   return gulp.src([paths])
-    .pipe($.sass(sassOptions)).on('error', conf.errorHandler('Sass'))
+    .pipe(sass_nb(sassOptions)).on('error', conf.errorHandler('Sass'))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')));
 };

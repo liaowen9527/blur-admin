@@ -22,6 +22,7 @@ gulp.task('inject', ['scripts', 'styles', 'injectAuth', 'inject404', 'copyVendor
   ], {read: false});
 
   var injectScripts = gulp.src([
+    path.join(conf.paths.src, '/app.js'),
     path.join(conf.paths.src, '/assets/js/**/*.js'),
     path.join(conf.paths.src, '/app/**/*.module.js'),
     path.join(conf.paths.src, '/app/**/*.js'),
